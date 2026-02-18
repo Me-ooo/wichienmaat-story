@@ -5,17 +5,16 @@ import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 import {
     ArrowLeft,
-    Utensils,
-    HeartPulse,
-    Scissors,
-    Brain,
-    GraduationCap,
-    AlertTriangle,
-    Cat,
-    Sparkles,
+    UtensilsCrossed,
+    Home,
+    Stethoscope,
+    Heart,
     Droplets,
+    Scissors,
     ThermometerSun,
     ShieldCheck,
+    Sparkles,
+    CheckCircle2,
 } from "lucide-react";
 
 const fadeInUp: Variants = {
@@ -23,217 +22,176 @@ const fadeInUp: Variants = {
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
-const staggerContainer: Variants = {
+const stagger: Variants = {
     hidden: {},
-    visible: { transition: { staggerChildren: 0.1 } },
+    visible: { transition: { staggerChildren: 0.12 } },
 };
 
-type GuideSection = {
+interface GuideSection {
     icon: React.ReactNode;
     title: string;
-    titleEn: string;
+    subtitle: string;
     color: string;
-    bgColor: string;
-    tips: { icon: React.ReactNode; text: string }[];
-};
+    tips: string[];
+}
 
 const guideSections: GuideSection[] = [
     {
-        icon: <Utensils className="w-6 h-6" />,
-        title: "อาหารและโภชนาการ",
-        titleEn: "Nutrition",
-        color: "text-amber-700",
-        bgColor: "bg-amber-50 border-amber-200",
+        icon: <UtensilsCrossed className="w-6 h-6" />,
+        title: "อาหาร",
+        subtitle: "เลือกสิ่งที่ดีที่สุดให้น้อง",
+        color: "bg-amber-50 text-amber-700 border-amber-200",
         tips: [
-            { icon: <ShieldCheck className="w-4 h-4 text-amber-600" />, text: "เลือกอาหารเกรดพรีเมียมที่มีโปรตีนจากเนื้อสัตว์เป็นส่วนผสมหลัก (ไก่, ปลา, เนื้อวัว)" },
-            { icon: <ShieldCheck className="w-4 h-4 text-amber-600" />, text: "ลูกแมว (0-12 เดือน) ให้อาหาร 3-4 มื้อต่อวัน, แมวโต 2 มื้อต่อวัน" },
-            { icon: <ShieldCheck className="w-4 h-4 text-amber-600" />, text: "หลีกเลี่ยงอาหารที่มีธัญพืชเยอะ หรืออาหารคนที่มีเกลือ/เครื่องเทศ" },
-            { icon: <ShieldCheck className="w-4 h-4 text-amber-600" />, text: "เสริมกรดไขมันโอเมก้า 3 เพื่อบำรุงขนและผิวหนัง" },
-            { icon: <Droplets className="w-4 h-4 text-amber-600" />, text: "จัดน้ำสะอาดไว้ให้ตลอดเวลา แนะนำน้ำพุแมวเพื่อกระตุ้นการดื่ม" },
+            "เลือกอาหารเกรดพรีเมียมที่มีโปรตีนจากเนื้อสัตว์เป็นส่วนผสมหลัก",
+            "ให้อาหารวันละ 2-3 มื้อ ตามน้ำหนักตัว อย่าให้กินเกินไป",
+            "เตรียมน้ำสะอาดไว้ให้ตลอดเวลา เปลี่ยนทุกวัน",
+            "หลีกเลี่ยง: ช็อกโกแลต หัวหอม กระเทียม องุ่น",
         ],
     },
     {
-        icon: <HeartPulse className="w-6 h-6" />,
-        title: "สุขภาพและการดูแลรักษา",
-        titleEn: "Health Care",
-        color: "text-rose-700",
-        bgColor: "bg-rose-50 border-rose-200",
+        icon: <Home className="w-6 h-6" />,
+        title: "สิ่งแวดล้อม",
+        subtitle: "จัดบ้านให้น้องสบาย",
+        color: "bg-emerald-50 text-emerald-700 border-emerald-200",
         tips: [
-            { icon: <ShieldCheck className="w-4 h-4 text-rose-600" />, text: "พาไปพบสัตวแพทย์ตรวจสุขภาพอย่างน้อยปีละ 1-2 ครั้ง" },
-            { icon: <ShieldCheck className="w-4 h-4 text-rose-600" />, text: "ฉีดวัคซีนครบตามกำหนด: วัคซีนรวม, วัคซีนพิษสุนัขบ้า" },
-            { icon: <ShieldCheck className="w-4 h-4 text-rose-600" />, text: "ถ่ายพยาธิทุก 3 เดือน และหยดยาป้องกันเห็บหมัดทุกเดือน" },
-            { icon: <ShieldCheck className="w-4 h-4 text-rose-600" />, text: "ระวังโรคที่พบบ่อย: โรคไต, โรคหัวใจ, ตาเหล่ (Strabismus)" },
-            { icon: <ThermometerSun className="w-4 h-4 text-rose-600" />, text: "สังเกตพฤติกรรมผิดปกติ: เบื่ออาหาร, ซึม, น้ำหนักลดผิดปกติ" },
+            "จัดพื้นที่สูงให้ปีนป่าย — แมววิเชียรมาศชอบอยู่ที่สูง",
+            "เตรียมเสาลับเล็บไว้หลายจุด ป้องกันเฟอร์นิเจอร์เสียหาย",
+            "จัดห้องน้ำแมวในที่เงียบสงบ เปลี่ยนทรายอย่างน้อยวันละครั้ง",
+            "เตรียมของเล่นหลากหลาย — แมวสายพันธุ์นี้ฉลาดและเบื่อง่าย",
+        ],
+    },
+    {
+        icon: <Stethoscope className="w-6 h-6" />,
+        title: "สุขภาพ",
+        subtitle: "ดูแลให้แข็งแรง",
+        color: "bg-blue-50 text-blue-700 border-blue-200",
+        tips: [
+            "พาไปตรวจสุขภาพประจำปี อย่างน้อยปีละ 1 ครั้ง",
+            "ฉีดวัคซีนครบตามกำหนด ทั้งวัคซีนหลักและเสริม",
+            "ระวังโรคที่พบบ่อย: ต้อกระจก, โรคหัวใจ, โรคไต",
+            "ทำหมันเพื่อสุขภาพที่ดีและลดพฤติกรรมก้าวร้าว",
+        ],
+    },
+    {
+        icon: <Heart className="w-6 h-6" />,
+        title: "อารมณ์ & นิสัย",
+        subtitle: "เข้าใจหัวใจน้อง",
+        color: "bg-rose-50 text-rose-700 border-rose-200",
+        tips: [
+            "แมววิเชียรมาศเป็นแมวที่ \"พูดเก่ง\" — ชอบส่งเสียงร้องสื่อสาร",
+            "ติดเจ้าของมาก อย่าปล่อยให้อยู่คนเดียวนานเกินไป",
+            "ฉลาดและเรียนรู้เร็ว สามารถฝึกได้เหมือนสุนัข",
+            "ให้ความรักและเวลา — นี่คือสิ่งที่น้องต้องการมากที่สุด",
+        ],
+    },
+    {
+        icon: <Droplets className="w-6 h-6" />,
+        title: "การอาบน้ำ",
+        subtitle: "สะอาดหมดจด",
+        color: "bg-sky-50 text-sky-700 border-sky-200",
+        tips: [
+            "อาบน้ำเดือนละ 1-2 ครั้ง หรือเมื่อจำเป็น",
+            "ใช้แชมพูสำหรับแมวโดยเฉพาะ ห้ามใช้สบู่คน",
+            "เช็ดหูทุกสัปดาห์ด้วยน้ำยาล้างหูแมว",
+            "เป่าขนให้แห้งสนิทหลังอาบน้ำ ป้องกันเชื้อรา",
         ],
     },
     {
         icon: <Scissors className="w-6 h-6" />,
-        title: "การดูแลขนและความสะอาด",
-        titleEn: "Grooming",
-        color: "text-sky-700",
-        bgColor: "bg-sky-50 border-sky-200",
+        title: "การดูแลขน",
+        subtitle: "ขนสวยเงางาม",
+        color: "bg-violet-50 text-violet-700 border-violet-200",
         tips: [
-            { icon: <ShieldCheck className="w-4 h-4 text-sky-600" />, text: "แปรงขนสัปดาห์ละ 1-2 ครั้ง ขนสั้นจึงไม่ต้องดูแลเยอะ" },
-            { icon: <ShieldCheck className="w-4 h-4 text-sky-600" />, text: "อาบน้ำเดือนละ 1 ครั้ง ใช้แชมพูสูตรอ่อนโยนสำหรับแมว" },
-            { icon: <ShieldCheck className="w-4 h-4 text-sky-600" />, text: "ตัดเล็บทุก 2-3 สัปดาห์ ทำความสะอาดหูทุกสัปดาห์" },
-            { icon: <ShieldCheck className="w-4 h-4 text-sky-600" />, text: "แปรงฟันด้วยยาสีฟันสำหรับแมว สัปดาห์ละ 2-3 ครั้ง" },
-            { icon: <Droplets className="w-4 h-4 text-sky-600" />, text: "เช็ดตาด้วยสำลีชุบน้ำอุ่นเมื่อมีคราบเปื้อน" },
-        ],
-    },
-    {
-        icon: <Brain className="w-6 h-6" />,
-        title: "นิสัยและพฤติกรรม",
-        titleEn: "Personality",
-        color: "text-violet-700",
-        bgColor: "bg-violet-50 border-violet-200",
-        tips: [
-            { icon: <ShieldCheck className="w-4 h-4 text-violet-600" />, text: "วิเชียรมาศเป็นแมวที่ \"พูดเก่ง\" ชอบส่งเสียงร้องสื่อสาร" },
-            { icon: <ShieldCheck className="w-4 h-4 text-violet-600" />, text: "ฉลาดมาก เรียนรู้ได้เร็ว สามารถฝึกให้ทำกิจกรรมต่างๆ ได้" },
-            { icon: <ShieldCheck className="w-4 h-4 text-violet-600" />, text: "ต้องการความสนใจสูง ไม่ควรปล่อยให้อยู่คนเดียวนานๆ" },
-            { icon: <ShieldCheck className="w-4 h-4 text-violet-600" />, text: "เข้ากับคนได้ดี เป็นมิตร รักเจ้าของ ติดคนมาก" },
-            { icon: <Cat className="w-4 h-4 text-violet-600" />, text: "ชอบเล่น ซุกซน มีพลังงานเยอะ ต้องมีของเล่นให้เพียงพอ" },
-        ],
-    },
-    {
-        icon: <GraduationCap className="w-6 h-6" />,
-        title: "การฝึกและกิจกรรม",
-        titleEn: "Training",
-        color: "text-emerald-700",
-        bgColor: "bg-emerald-50 border-emerald-200",
-        tips: [
-            { icon: <ShieldCheck className="w-4 h-4 text-emerald-600" />, text: "ฝึกใช้กระบะทรายตั้งแต่ลูกแมว วางในที่สงบ ทำความสะอาดทุกวัน" },
-            { icon: <ShieldCheck className="w-4 h-4 text-emerald-600" />, text: "ใช้ Clicker Training ร่วมกับขนมเพื่อสอนพฤติกรรมที่ต้องการ" },
-            { icon: <ShieldCheck className="w-4 h-4 text-emerald-600" />, text: "จัดเวลาเล่นด้วยอย่างน้อย 30 นาทีต่อวัน (ไม้ตกแมว, ลูกบอล)" },
-            { icon: <ShieldCheck className="w-4 h-4 text-emerald-600" />, text: "ติดตั้งเสาลับเล็บและคอนโดแมวเพื่อการออกกำลังกาย" },
-            { icon: <Sparkles className="w-4 h-4 text-emerald-600" />, text: "ฝึกสังคมตั้งแต่เด็ก ให้คุ้นเคยกับคน สัตว์เลี้ยงอื่น และสิ่งแวดล้อม" },
-        ],
-    },
-    {
-        icon: <AlertTriangle className="w-6 h-6" />,
-        title: "สิ่งที่ควรระวัง",
-        titleEn: "Cautions",
-        color: "text-orange-700",
-        bgColor: "bg-orange-50 border-orange-200",
-        tips: [
-            { icon: <AlertTriangle className="w-4 h-4 text-orange-600" />, text: "อาหารอันตราย: ช็อกโกแลต, หัวหอม, กระเทียม, องุ่น, ลูกเกด" },
-            { icon: <AlertTriangle className="w-4 h-4 text-orange-600" />, text: "ต้นไม้มีพิษ: ลิลลี่, ว่านหางจระเข้, พลูด่าง (Pothos)" },
-            { icon: <AlertTriangle className="w-4 h-4 text-orange-600" />, text: "ระวังหน้าต่างสูง! ติดตาข่ายนิรภัยป้องกันแมวตกจากที่สูง" },
-            { icon: <AlertTriangle className="w-4 h-4 text-orange-600" />, text: "เก็บยาและสารเคมีให้มิดชิด แมวอาจกินโดยไม่ตั้งใจ" },
-            { icon: <AlertTriangle className="w-4 h-4 text-orange-600" />, text: "ไม่ควรให้นมวัว แมวหลายตัวย่อยแลคโตสไม่ได้" },
+            "แปรงขนสัปดาห์ละ 2-3 ครั้ง ลดขนร่วงในบ้าน",
+            "ขนวิเชียรมาศสั้นดูแลง่าย ไม่ต้องตัดเป็นทรง",
+            "สังเกตขนเปลี่ยนสี — อุณหภูมิมีผลต่อสีแต้ม",
+            "ตัดเล็บทุก 2 สัปดาห์ ระวังอย่าตัดถึกเส้นเลือด",
         ],
     },
 ];
 
+const quickChecklist = [
+    "ถาดทรายแมว + ทรายแมวคุณภาพดี",
+    "ชามอาหารและชามน้ำ (สแตนเลสหรือเซรามิก)",
+    "อาหารแมวเกรดพรีเมียม",
+    "เสาลับเล็บ",
+    "ของเล่นอย่างน้อย 3-4 ชิ้น",
+    "กล่องหรือเตียงสำหรับนอน",
+    "กรงเดินทาง",
+    "นัดพบสัตวแพทย์ภายในสัปดาห์แรก",
+];
+
 export default function GuidePage() {
     return (
-        <main className="min-h-screen bg-[#FDFCF5] text-[#3E2C20] font-serif overflow-x-hidden selection:bg-[#8FB8DE] selection:text-white">
-            {/* -------- TOP NAV -------- */}
-            <nav className="fixed top-0 left-0 w-full z-50 bg-[#FDFCF5]/80 backdrop-blur-md border-b border-[#3E2C20]/5">
-                <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-                    <Link
-                        href="/cats"
-                        className="flex items-center gap-2 text-[#6D5A4B] hover:text-[#3E2C20] transition-colors group"
-                    >
-                        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                        <span className="text-sm font-medium">กลับหน้าเลือกแมว</span>
-                    </Link>
-                    <div className="flex items-center gap-2 text-[#8FB8DE]">
-                        <Cat className="w-5 h-5" />
-                        <span className="text-sm font-bold tracking-wider">CARE GUIDE</span>
-                    </div>
-                </div>
-            </nav>
+        <main className="min-h-screen bg-[#FDFCF5] text-[#3E2C20] font-serif">
+            {/* --- Back Button --- */}
+            <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+                className="fixed top-6 left-6 z-50"
+            >
+                <Link
+                    href="/cats"
+                    className="group flex items-center gap-2 px-4 py-2.5 bg-white/80 backdrop-blur-md border border-[#3E2C20]/10 rounded-full shadow-lg hover:bg-[#3E2C20] hover:text-white transition-all duration-300"
+                >
+                    <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                    <span className="text-sm font-semibold tracking-wide">กลับดูแมว</span>
+                </Link>
+            </motion.div>
 
-            {/* -------- HERO -------- */}
-            <section className="pt-32 pb-16 px-6 text-center relative">
+            {/* --- Header --- */}
+            <section className="pt-28 pb-16 px-6 text-center">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
-                    className="max-w-3xl mx-auto"
                 >
                     <span className="text-[#8FB8DE] tracking-[0.4em] uppercase text-xs font-bold mb-4 block">
-                        Complete Care Guide
+                        Care Guide
                     </span>
                     <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
                         คู่มือการเลี้ยง
                     </h1>
                     <p className="text-lg text-[#6D5A4B] max-w-xl mx-auto leading-relaxed font-light">
-                        ทุกสิ่งที่คุณต้องรู้เพื่อดูแลแมววิเชียรมาศให้มีความสุขและสุขภาพดี ตั้งแต่อาหาร สุขภาพ ไปจนถึงการฝึก
+                        ทุกสิ่งที่คุณต้องรู้เพื่อเลี้ยงวิเชียรมาศให้มีความสุข แข็งแรง และอายุยืน
                     </p>
                 </motion.div>
-
-                {/* Decorative blur */}
-                <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-[#8FB8DE] rounded-full opacity-[0.06] blur-3xl -z-10" />
             </section>
 
-            {/* -------- QUICK STATS -------- */}
-            <section className="pb-12 px-6">
+            {/* --- Guide Grid --- */}
+            <section className="px-6 md:px-16 pb-16">
                 <motion.div
+                    className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    variants={staggerContainer}
-                    className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4"
+                    variants={stagger}
                 >
-                    {[
-                        { label: "อายุขัย", value: "15-20 ปี" },
-                        { label: "น้ำหนัก", value: "3-5 กก." },
-                        { label: "นิสัย", value: "ร่าเริง" },
-                        { label: "ดูแล", value: "ง่าย" },
-                    ].map((stat) => (
+                    {guideSections.map((section, i) => (
                         <motion.div
-                            key={stat.label}
+                            key={i}
                             variants={fadeInUp}
-                            className="text-center p-5 bg-white rounded-2xl border border-[#3E2C20]/5 shadow-sm"
+                            className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl border border-[#3E2C20]/5 transition-shadow duration-500"
                         >
-                            <p className="text-2xl font-bold text-[#3E2C20]">{stat.value}</p>
-                            <p className="text-xs text-[#8FB8DE] font-medium tracking-wider uppercase mt-1">
-                                {stat.label}
-                            </p>
-                        </motion.div>
-                    ))}
-                </motion.div>
-            </section>
-
-            {/* -------- GUIDE SECTIONS -------- */}
-            <section className="pb-24 px-6">
-                <motion.div
-                    className="max-w-4xl mx-auto space-y-8"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.05 }}
-                    variants={staggerContainer}
-                >
-                    {guideSections.map((section) => (
-                        <motion.div
-                            key={section.titleEn}
-                            variants={fadeInUp}
-                            className={`rounded-3xl border ${section.bgColor} p-8 shadow-sm hover:shadow-md transition-shadow duration-300`}
-                        >
-                            {/* Header */}
-                            <div className="flex items-center gap-4 mb-6">
-                                <div
-                                    className={`w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center ${section.color}`}
-                                >
-                                    {section.icon}
-                                </div>
-                                <div>
-                                    <h2 className="text-2xl font-bold">{section.title}</h2>
-                                    <p className="text-xs text-[#6D5A4B]/60 tracking-widest uppercase font-medium">
-                                        {section.titleEn}
-                                    </p>
-                                </div>
+                            {/* Icon + Title */}
+                            <div
+                                className={`inline-flex items-center gap-3 px-4 py-2 rounded-full text-sm font-bold mb-6 border ${section.color}`}
+                            >
+                                {section.icon}
+                                {section.title}
                             </div>
+                            <p className="text-[#6D5A4B] text-sm mb-5 font-light">{section.subtitle}</p>
 
                             {/* Tips list */}
-                            <ul className="space-y-4">
-                                {section.tips.map((tip, i) => (
-                                    <li key={i} className="flex items-start gap-3">
-                                        <span className="mt-0.5 shrink-0">{tip.icon}</span>
-                                        <p className="text-[#3E2C20]/80 leading-relaxed text-sm font-light">
-                                            {tip.text}
-                                        </p>
+                            <ul className="space-y-3">
+                                {section.tips.map((tip, j) => (
+                                    <li
+                                        key={j}
+                                        className="flex items-start gap-3 text-sm leading-relaxed text-[#4A4036]"
+                                    >
+                                        <span className="mt-1 w-1.5 h-1.5 rounded-full bg-[#8FB8DE] shrink-0" />
+                                        {tip}
                                     </li>
                                 ))}
                             </ul>
@@ -242,33 +200,91 @@ export default function GuidePage() {
                 </motion.div>
             </section>
 
-            {/* -------- BOTTOM CTA -------- */}
-            <section className="py-20 px-6 bg-[#3E2C20] text-[#FDFCF5]">
+            {/* --- Quick Checklist --- */}
+            <section className="py-20 px-6 bg-[#F5F2EA]">
                 <motion.div
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
                     variants={fadeInUp}
-                    className="max-w-3xl mx-auto text-center"
+                    className="max-w-2xl mx-auto"
                 >
-                    <Cat className="w-10 h-10 mx-auto mb-4 text-[#8FB8DE]" />
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                        พร้อมต้อนรับสมาชิกใหม่แล้ว!
-                    </h2>
-                    <p className="text-[#8FB8DE] mb-8 font-light text-lg">
-                        กลับไปเลือกดูแมวสีที่ชอบ แล้วเริ่มต้นชีวิตใหม่กับวิเชียรมาศ
-                    </p>
-                    <Link
-                        href="/cats"
-                        className="inline-flex items-center gap-3 px-8 py-4 bg-[#8FB8DE] text-[#3E2C20] rounded-full font-bold hover:bg-white transition-colors duration-300 shadow-lg"
-                    >
-                        <Sparkles className="w-5 h-5" />
-                        กลับไปเลือกดูแมว
-                    </Link>
+                    <div className="text-center mb-12">
+                        <ShieldCheck className="w-8 h-8 mx-auto mb-4 text-[#3E2C20]" />
+                        <h2 className="text-3xl font-bold mb-3">เช็คลิสต์ก่อนรับน้องกลับบ้าน</h2>
+                        <p className="text-[#6D5A4B] font-light">สิ่งที่ต้องเตรียมให้พร้อมก่อนน้องมาถึง</p>
+                    </div>
+
+                    <div className="bg-white rounded-2xl p-8 shadow-sm border border-[#3E2C20]/5">
+                        <motion.ul className="space-y-4" variants={stagger}>
+                            {quickChecklist.map((item, i) => (
+                                <motion.li
+                                    key={i}
+                                    variants={fadeInUp}
+                                    className="flex items-center gap-4 text-[#4A4036]"
+                                >
+                                    <CheckCircle2 className="w-5 h-5 text-[#8FB8DE] shrink-0" />
+                                    <span className="font-light">{item}</span>
+                                </motion.li>
+                            ))}
+                        </motion.ul>
+                    </div>
                 </motion.div>
             </section>
 
-            {/* -------- FOOTER -------- */}
+            {/* --- Temperature Section --- */}
+            <section className="py-20 px-6 bg-[#3E2C20] text-[#FDFCF5]">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                    className="max-w-3xl mx-auto text-center"
+                >
+                    <ThermometerSun className="w-8 h-8 mx-auto mb-6 text-[#8FB8DE]" />
+                    <h2 className="text-3xl font-bold mb-6">รู้หรือไม่?</h2>
+                    <p className="text-lg leading-relaxed opacity-80 mb-4 font-light">
+                        สีแต้มของแมววิเชียรมาศเปลี่ยนแปลงตามอุณหภูมิ! ยีนที่ควบคุมสีขนของแมววิเชียรมาศเป็น
+                        <strong className="text-[#8FB8DE] font-semibold"> ยีนที่ไวต่ออุณหภูมิ </strong>
+                        ทำให้บริเวณที่เย็นกว่า (หู จมูก เท้า หาง) จะมีสีเข้มกว่าส่วนอื่นของร่างกาย
+                    </p>
+                    <p className="text-sm opacity-50 font-light">
+                        ลูกแมววิเชียรมาศจะเกิดมาตัวขาวทั้งหมด แล้วค่อยๆ เข้มขึ้นตามอายุ
+                    </p>
+                </motion.div>
+            </section>
+
+            {/* --- CTA --- */}
+            <section className="py-20 px-6 bg-[#FDFCF5] text-center">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                >
+                    <Sparkles className="w-8 h-8 mx-auto mb-4 text-[#8FB8DE]" />
+                    <h2 className="text-3xl font-bold mb-4">พร้อมแล้ว!</h2>
+                    <p className="text-[#6D5A4B] mb-10 max-w-lg mx-auto font-light text-lg">
+                        เมื่ออ่านจบแล้ว คุณก็พร้อมที่จะต้อนรับน้องวิเชียรมาศเข้าสู่ครอบครัว
+                    </p>
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <Link
+                            href="/cats"
+                            className="px-8 py-4 bg-[#3E2C20] text-white rounded-full font-bold hover:bg-[#8FB8DE] transition-colors duration-300 shadow-lg"
+                        >
+                            กลับดูสายพันธุ์
+                        </Link>
+                        <Link
+                            href="/login"
+                            className="px-8 py-4 border-2 border-[#3E2C20] text-[#3E2C20] rounded-full font-bold hover:bg-[#3E2C20] hover:text-white transition-colors duration-300"
+                        >
+                            สมัครสมาชิก
+                        </Link>
+                    </div>
+                </motion.div>
+            </section>
+
+            {/* --- Footer --- */}
             <footer className="py-8 text-center bg-[#FDFCF5] border-t border-[#3E2C20]/10 text-[#6D5A4B] text-sm">
                 <p>© 2026 Siamese Legacy. Designed with Thai Heritage in mind.</p>
             </footer>

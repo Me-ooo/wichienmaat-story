@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion, Variants } from 'framer-motion';
-import { Scroll, Sparkles, Crown, ArrowDown, Play, BookOpen } from 'lucide-react';
+import { Scroll, Sparkles, Crown, ArrowDown, Play, BookOpen, LogIn, PawPrint } from 'lucide-react';
 
 // Animation Variants (ใส่ Type กันแดง)
 const fadeInUp: Variants = {
@@ -19,6 +19,23 @@ const imageReveal: Variants = {
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#FDFCF5] text-[#3E2C20] font-serif overflow-x-hidden selection:bg-[#8FB8DE] selection:text-white">
+
+      {/* --- Login Button (Floating) --- */}
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+        className="fixed top-6 right-6 z-50"
+      >
+        <Link
+          href="/login"
+          className="group relative inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#3E2C20] to-[#5C4033] text-white rounded-full text-sm font-semibold tracking-wide shadow-lg shadow-[#3E2C20]/25 hover:shadow-xl hover:shadow-[#3E2C20]/40 hover:scale-105 active:scale-95 transition-all duration-300 ring-1 ring-white/10 hover:ring-white/25"
+        >
+          <LogIn className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
+          เข้าสู่ระบบ
+          <span className="absolute inset-0 rounded-full bg-gradient-to-r from-white/0 via-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        </Link>
+      </motion.div>
 
       {/* ---------------- HERO SECTION (Minimal) ---------------- */}
       <section className="relative h-screen flex flex-col justify-center items-center text-center px-6">
@@ -190,8 +207,14 @@ export default function Home() {
               แม้กาลเวลาจะผ่านไปหลายร้อยปี แต่เสน่ห์ของแมววิเชียรมาศยังคงเป็น "อมตะ" <br />
               นี่คือมรดกทางวัฒนธรรมที่มีชีวิต ที่รอให้คุณได้สัมผัส
             </p>
-            <Link href="/cats" className="px-8 py-4 bg-[#3E2C20] text-white rounded-full font-bold hover:bg-[#8FB8DE] transition-colors duration-300 shadow-lg inline-block">
+            <Link
+              href="/cats"
+              className="group relative inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-[#3E2C20] via-[#5C4033] to-[#3E2C20] text-white rounded-full font-bold text-lg shadow-xl shadow-[#3E2C20]/30 hover:shadow-2xl hover:shadow-[#8FB8DE]/40 hover:scale-105 active:scale-95 transition-all duration-300 ring-1 ring-white/10 hover:ring-[#8FB8DE]/50 overflow-hidden"
+            >
+              <PawPrint className="w-5 h-5 group-hover:rotate-12 group-hover:scale-110 transition-transform duration-300" />
               เริ่มต้นเลี้ยงวิเชียรมาศ
+              <Sparkles className="w-4 h-4 opacity-60 group-hover:opacity-100 group-hover:animate-spin transition-opacity duration-300" />
+              <span className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
             </Link>
           </motion.div>
         </div>

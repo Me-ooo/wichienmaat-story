@@ -3,241 +3,220 @@
 import React from "react";
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
-import { ArrowLeft, BookOpen, Sparkles, Heart } from "lucide-react";
+import { ArrowLeft, Heart, BookOpen, Sparkles, LogIn } from "lucide-react";
 
 const fadeInUp: Variants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
-const staggerContainer: Variants = {
+const stagger: Variants = {
     hidden: {},
-    visible: { transition: { staggerChildren: 0.12 } },
+    visible: { transition: { staggerChildren: 0.15 } },
 };
 
-const cardVariant: Variants = {
-    hidden: { opacity: 0, y: 30, scale: 0.95 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        transition: { duration: 0.5, ease: "easeOut" },
-    },
-};
-
-type CatBreed = {
+interface CatBreed {
     name: string;
     nameEn: string;
-    desc: string;
-    gradient: string;
-    pointColor: string;
-    emoji: string;
-    badge: string;
-    badgeColor: string;
-};
+    color: string;
+    accent: string;
+    description: string;
+    traits: string[];
+}
 
-const catBreeds: CatBreed[] = [
+const cats: CatBreed[] = [
     {
         name: "ซีลพอยท์",
         nameEn: "Seal Point",
-        desc: "แต้มสีน้ำตาลเข้มเกือบดำ คลาสสิกดั้งเดิมที่สุด หายากและงดงาม",
-        gradient: "from-[#8B6914] via-[#3E2C20] to-[#1a0f09]",
-        pointColor: "#3E2C20",
-        emoji: "🐱",
-        badge: "ดั้งเดิม",
-        badgeColor: "bg-amber-900/20 text-amber-800",
-    },
-    {
-        name: "บลูพอยท์",
-        nameEn: "Blue Point",
-        desc: "แต้มสีเทาอมฟ้าเย็นตา อ่อนโยนดุจแสงจันทร์ยามค่ำคืน",
-        gradient: "from-[#7B9EB8] via-[#5A7A94] to-[#3D5A73]",
-        pointColor: "#5A7A94",
-        emoji: "🐾",
-        badge: "นิยม",
-        badgeColor: "bg-blue-100 text-blue-700",
+        color: "from-[#3E2C20] to-[#5C4033]",
+        accent: "#3E2C20",
+        description:
+            "สีคลาสสิกดั้งเดิม ลำตัวสีครีมอ่อนตัดกับแต้มสีน้ำตาลเข้มเกือบดำ นัยน์ตาสีฟ้าสดใส",
+        traits: ["ฉลาดมาก", "ชอบเล่น", "ขี้หึง"],
     },
     {
         name: "ช็อกโกแลตพอยท์",
         nameEn: "Chocolate Point",
-        desc: "แต้มสีช็อกโกแลตนม อบอุ่นนุ่มนวลราวกับขนมหวาน",
-        gradient: "from-[#D2A679] via-[#8B6242] to-[#5C3A1E]",
-        pointColor: "#8B6242",
-        emoji: "🍫",
-        badge: "หายาก",
-        badgeColor: "bg-orange-100 text-orange-700",
+        color: "from-[#6B4226] to-[#8B6914]",
+        accent: "#6B4226",
+        description:
+            "ลำตัวสีงาช้าง แต้มสีช็อกโกแลตนม อ่อนโยนกว่าซีลพอยท์ ดูหวานน่ารัก",
+        traits: ["อ่อนโยน", "เป็นมิตร", "เสียงเบา"],
+    },
+    {
+        name: "บลูพอยท์",
+        nameEn: "Blue Point",
+        color: "from-[#6B7B8D] to-[#8FA4B8]",
+        accent: "#6B7B8D",
+        description:
+            "ลำตัวสีขาวอมฟ้า แต้มสีเทาอมฟ้า สง่างามเหมือนท้องฟ้าในวันครึ้มฝน",
+        traits: ["สงบเยือกเย็น", "รักเจ้าของ", "ละเอียดอ่อน"],
     },
     {
         name: "ไลแลคพอยท์",
         nameEn: "Lilac Point",
-        desc: "แต้มสีชมพูอมเทาอ่อน ละมุนละไมที่สุดในกลุ่ม",
-        gradient: "from-[#D4B8C9] via-[#A88FA0] to-[#7D6877]",
-        pointColor: "#A88FA0",
-        emoji: "🌸",
-        badge: "หายากมาก",
-        badgeColor: "bg-pink-100 text-pink-700",
-    },
-    {
-        name: "เรดพอยท์",
-        nameEn: "Red / Flame Point",
-        desc: "แต้มสีส้มแดงอมทอง อุ่นและสดใสเหมือนเปลวเทียน",
-        gradient: "from-[#F0A868] via-[#D4764E] to-[#A85030]",
-        pointColor: "#D4764E",
-        emoji: "🔥",
-        badge: "แปลกตา",
-        badgeColor: "bg-red-100 text-red-700",
-    },
-    {
-        name: "ครีมพอยท์",
-        nameEn: "Cream Point",
-        desc: "แต้มสีครีมอ่อนนวล นุ่มนวลดั่งผ้าไหมไทย",
-        gradient: "from-[#F5E6D3] via-[#E8CDB5] to-[#D4B498]",
-        pointColor: "#D4B498",
-        emoji: "🤍",
-        badge: "น่ารัก",
-        badgeColor: "bg-yellow-50 text-yellow-700",
+        color: "from-[#9B8F9E] to-[#C4B7C9]",
+        accent: "#9B8F9E",
+        description:
+            "ลำตัวสีขาวนวล แต้มสีเทาอมชมพูอ่อน หายากที่สุดและสวยละมุนที่สุด",
+        traits: ["ขี้อ้อน", "ติดคน", "เสียงไพเราะ"],
     },
 ];
 
 export default function CatsPage() {
     return (
-        <main className="min-h-screen bg-[#FDFCF5] text-[#3E2C20] font-serif overflow-x-hidden selection:bg-[#8FB8DE] selection:text-white">
-            {/* -------- TOP NAV -------- */}
-            <nav className="fixed top-0 left-0 w-full z-50 bg-[#FDFCF5]/80 backdrop-blur-md border-b border-[#3E2C20]/5">
-                <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-                    <Link
-                        href="/"
-                        className="flex items-center gap-2 text-[#6D5A4B] hover:text-[#3E2C20] transition-colors group"
-                    >
-                        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                        <span className="text-sm font-medium">กลับหน้าหลัก</span>
-                    </Link>
-                    <Link
-                        href="/cats/guide"
-                        className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#3E2C20] text-white text-sm font-bold hover:bg-[#8FB8DE] transition-colors shadow-md"
-                    >
-                        <BookOpen className="w-4 h-4" />
-                        คู่มือการเลี้ยง
-                    </Link>
-                </div>
-            </nav>
+        <main className="min-h-screen bg-[#FDFCF5] text-[#3E2C20] font-serif">
+            {/* --- Back Button --- */}
+            <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+                className="fixed top-6 left-6 z-50"
+            >
+                <Link
+                    href="/"
+                    className="group flex items-center gap-2.5 px-5 py-3 bg-white/90 backdrop-blur-xl border border-[#3E2C20]/10 rounded-full shadow-lg shadow-[#3E2C20]/10 hover:bg-[#3E2C20] hover:text-white hover:shadow-xl hover:shadow-[#3E2C20]/25 hover:scale-105 active:scale-95 transition-all duration-300 ring-1 ring-[#3E2C20]/5 hover:ring-[#3E2C20]/50"
+                >
+                    <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1.5 transition-transform duration-300" />
+                    <span className="text-sm font-semibold tracking-wide">กลับหน้าหลัก</span>
+                </Link>
+            </motion.div>
 
-            {/* -------- HERO -------- */}
-            <section className="pt-32 pb-16 px-6 text-center relative">
+            {/* --- Login Button --- */}
+            <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+                className="fixed top-6 right-6 z-50"
+            >
+                <Link
+                    href="/login"
+                    className="group relative inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#3E2C20] to-[#5C4033] text-white rounded-full text-sm font-semibold tracking-wide shadow-lg shadow-[#3E2C20]/25 hover:shadow-xl hover:shadow-[#3E2C20]/40 hover:scale-105 active:scale-95 transition-all duration-300 ring-1 ring-white/10 hover:ring-white/25 overflow-hidden"
+                >
+                    <LogIn className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
+                    เข้าสู่ระบบ
+                    <span className="absolute inset-0 rounded-full bg-gradient-to-r from-white/0 via-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                </Link>
+            </motion.div>
+
+            {/* --- Header --- */}
+            <section className="pt-28 pb-16 px-6 text-center">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
-                    className="max-w-3xl mx-auto"
                 >
                     <span className="text-[#8FB8DE] tracking-[0.4em] uppercase text-xs font-bold mb-4 block">
-                        Discover Siamese Colors
+                        Cat Collection
                     </span>
                     <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-                        สีสันแห่งวิเชียรมาศ
+                        สายพันธุ์วิเชียรมาศ
                     </h1>
                     <p className="text-lg text-[#6D5A4B] max-w-xl mx-auto leading-relaxed font-light">
-                        แมววิเชียรมาศมีหลากหลายสีแต้ม แต่ละแบบมีเสน่ห์เฉพาะตัว เลือกชมความงามของแต่ละสายพันธุ์ได้ที่นี่
+                        ค้นพบความงดงามของแมววิเชียรมาศทั้ง 4 สี เรียนรู้ลักษณะเฉพาะตัวของแต่ละแบบ
                     </p>
                 </motion.div>
-
-                {/* Decorative blur */}
-                <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-[#8FB8DE] rounded-full opacity-[0.06] blur-3xl -z-10" />
             </section>
 
-            {/* -------- BREED CARDS -------- */}
-            <section className="pb-24 px-6">
+            {/* --- Cat Grid --- */}
+            <section className="px-6 md:px-16 pb-12">
                 <motion.div
-                    className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+                    className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8"
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true, amount: 0.1 }}
-                    variants={staggerContainer}
+                    viewport={{ once: true }}
+                    variants={stagger}
                 >
-                    {catBreeds.map((cat) => (
+                    {cats.map((cat, i) => (
                         <motion.div
-                            key={cat.nameEn}
-                            variants={cardVariant}
-                            className="group relative bg-white rounded-3xl overflow-hidden shadow-lg shadow-[#3E2C20]/5 hover:shadow-2xl hover:shadow-[#3E2C20]/10 transition-all duration-500 hover:-translate-y-2"
+                            key={i}
+                            variants={fadeInUp}
+                            className="group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-500 border border-[#3E2C20]/5"
                         >
-                            {/* Image Area with Gradient */}
+                            {/* Image Area with gradient placeholder */}
                             <div
-                                className={`relative h-56 bg-gradient-to-br ${cat.gradient} flex items-center justify-center overflow-hidden`}
+                                className={`relative h-64 bg-gradient-to-br ${cat.color} flex items-center justify-center overflow-hidden`}
                             >
-                                <span className="text-7xl group-hover:scale-110 transition-transform duration-500 drop-shadow-lg">
-                                    {cat.emoji}
-                                </span>
+                                {/* Decorative cat silhouette */}
+                                <div className="absolute inset-0 flex items-center justify-center opacity-20">
+                                    <svg viewBox="0 0 200 200" className="w-48 h-48 fill-white">
+                                        <ellipse cx="100" cy="120" rx="55" ry="65" />
+                                        <ellipse cx="100" cy="70" rx="35" ry="30" />
+                                        <ellipse cx="80" cy="65" rx="8" ry="12" transform="rotate(-20 80 65)" />
+                                        <ellipse cx="120" cy="65" rx="8" ry="12" transform="rotate(20 120 65)" />
+                                        <circle cx="88" cy="68" r="5" className="fill-current opacity-50" />
+                                        <circle cx="112" cy="68" r="5" className="fill-current opacity-50" />
+                                        <path d="M 45 140 Q 20 160 15 180" stroke="white" strokeWidth="6" fill="none" strokeLinecap="round" />
+                                    </svg>
+                                </div>
 
-                                {/* Decorative circles */}
-                                <div className="absolute top-4 right-4 w-20 h-20 rounded-full bg-white/10 blur-xl" />
-                                <div className="absolute bottom-4 left-4 w-12 h-12 rounded-full bg-white/5 blur-lg" />
+                                {/* Floating label */}
+                                <div className="relative z-10 text-white text-center">
+                                    <p className="text-sm tracking-[0.3em] uppercase font-light opacity-80 mb-1">
+                                        {cat.nameEn}
+                                    </p>
+                                    <h2 className="text-3xl font-bold">{cat.name}</h2>
+                                </div>
 
-                                {/* Badge */}
-                                <span
-                                    className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-bold ${cat.badgeColor} backdrop-blur-sm`}
-                                >
-                                    {cat.badge}
-                                </span>
+                                {/* Hover overlay */}
+                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
                             </div>
 
-                            {/* Content */}
-                            <div className="p-6">
-                                {/* Point color dot + name */}
-                                <div className="flex items-center gap-3 mb-3">
-                                    <div
-                                        className="w-4 h-4 rounded-full ring-2 ring-offset-2 ring-[#3E2C20]/10"
-                                        style={{ backgroundColor: cat.pointColor }}
-                                    />
-                                    <div>
-                                        <h3 className="text-xl font-bold leading-tight">{cat.name}</h3>
-                                        <p className="text-xs text-[#8FB8DE] font-medium tracking-wider uppercase">
-                                            {cat.nameEn}
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <p className="text-[#6D5A4B] text-sm leading-relaxed font-light">
-                                    {cat.desc}
+                            {/* Content Area */}
+                            <div className="p-8">
+                                <p className="text-[#6D5A4B] leading-relaxed mb-6 font-light">
+                                    {cat.description}
                                 </p>
 
-                                {/* Hover indicator */}
-                                <div className="mt-4 flex items-center gap-2 text-[#8FB8DE] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <Heart className="w-4 h-4" />
-                                    <span className="text-xs font-medium">น่าเลี้ยง!</span>
+                                {/* Traits */}
+                                <div className="flex flex-wrap gap-2">
+                                    {cat.traits.map((trait, j) => (
+                                        <span
+                                            key={j}
+                                            className="px-3 py-1.5 text-xs font-semibold rounded-full border border-[#3E2C20]/15 text-[#3E2C20]/80 bg-[#F5F2EA]"
+                                        >
+                                            {trait}
+                                        </span>
+                                    ))}
                                 </div>
+                            </div>
+
+                            {/* Heart icon */}
+                            <div className="absolute top-6 right-6">
+                                <Heart className="w-5 h-5 text-white/60 group-hover:text-white group-hover:fill-white/30 transition-all duration-300" />
                             </div>
                         </motion.div>
                     ))}
                 </motion.div>
             </section>
 
-            {/* -------- CTA SECTION -------- */}
+            {/* --- CTA: Guide --- */}
             <section className="py-20 px-6 bg-[#F5F2EA]">
                 <motion.div
-                    initial="hidden"
-                    whileInView="visible"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    variants={fadeInUp}
-                    className="max-w-3xl mx-auto text-center"
+                    transition={{ duration: 0.8 }}
+                    className="max-w-2xl mx-auto text-center"
                 >
                     <Sparkles className="w-8 h-8 mx-auto mb-4 text-[#8FB8DE]" />
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                        พร้อมจะเริ่มเลี้ยงวิเชียรมาศแล้วไหม?
-                    </h2>
-                    <p className="text-[#6D5A4B] mb-8 font-light text-lg">
-                        อ่านคู่มือฉบับสมบูรณ์เพื่อเตรียมพร้อมดูแลน้องแมวอย่างดีที่สุด
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4">พร้อมเลี้ยงแล้วหรือยัง?</h2>
+                    <p className="text-[#6D5A4B] mb-10 font-light text-lg leading-relaxed">
+                        อ่านคู่มือการเลี้ยงวิเชียรมาศฉบับเข้าใจง่าย เพื่อเตรียมตัวต้อนรับสมาชิกใหม่ของครอบครัว
                     </p>
                     <Link
                         href="/cats/guide"
-                        className="inline-flex items-center gap-3 px-8 py-4 bg-[#3E2C20] text-white rounded-full font-bold hover:bg-[#8FB8DE] transition-colors duration-300 shadow-lg hover:shadow-xl"
+                        className="group relative inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-[#3E2C20] via-[#5C4033] to-[#3E2C20] text-white rounded-full font-bold text-lg shadow-xl shadow-[#3E2C20]/30 hover:shadow-2xl hover:shadow-[#8FB8DE]/40 hover:scale-105 active:scale-95 transition-all duration-300 ring-1 ring-white/10 hover:ring-[#8FB8DE]/50 overflow-hidden"
                     >
-                        <BookOpen className="w-5 h-5" />
-                        เปิดคู่มือการเลี้ยง
+                        <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+                        คู่มือการเลี้ยง
+                        <Sparkles className="w-4 h-4 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+                        <span className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                     </Link>
                 </motion.div>
             </section>
 
-            {/* -------- FOOTER -------- */}
+            {/* --- Footer --- */}
             <footer className="py-8 text-center bg-[#FDFCF5] border-t border-[#3E2C20]/10 text-[#6D5A4B] text-sm">
                 <p>© 2026 Siamese Legacy. Designed with Thai Heritage in mind.</p>
             </footer>
