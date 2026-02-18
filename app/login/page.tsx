@@ -47,8 +47,7 @@ export default function LoginPage() {
                 <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#3E2C20]/10 border border-[#3E2C20]/5 p-10">
                     {/* Header */}
                     <div className="text-center mb-10">
-                        {/* Cat Icon */}
-                        <div className="w-16 h-16 mx-auto mb-6 bg-[#3E2C20] rounded-2xl flex items-center justify-center shadow-lg">
+                        <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-[#3E2C20] to-[#5C4033] rounded-2xl flex items-center justify-center shadow-lg shadow-[#3E2C20]/20">
                             <svg viewBox="0 0 40 40" className="w-8 h-8 fill-white">
                                 <ellipse cx="20" cy="24" rx="11" ry="13" />
                                 <ellipse cx="20" cy="15" rx="8" ry="7" />
@@ -58,7 +57,6 @@ export default function LoginPage() {
                                 <circle cx="23" cy="14.5" r="1.2" className="fill-[#3E2C20]" />
                             </svg>
                         </div>
-
                         <h1 className="text-3xl font-bold mb-2">ยินดีต้อนรับ</h1>
                         <p className="text-[#6D5A4B] font-light text-sm">
                             เข้าสู่ระบบเพื่อเข้าถึงเนื้อหาพิเศษของ Siamese Legacy
@@ -69,9 +67,7 @@ export default function LoginPage() {
                     <form onSubmit={handleSubmit} className="space-y-5">
                         {/* Email */}
                         <div>
-                            <label className="block text-sm font-semibold mb-2 text-[#3E2C20]">
-                                อีเมล
-                            </label>
+                            <label className="block text-sm font-semibold mb-2 text-[#3E2C20]">อีเมล</label>
                             <div className="relative">
                                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6D5A4B]/50" />
                                 <input
@@ -87,9 +83,7 @@ export default function LoginPage() {
 
                         {/* Password */}
                         <div>
-                            <label className="block text-sm font-semibold mb-2 text-[#3E2C20]">
-                                รหัสผ่าน
-                            </label>
+                            <label className="block text-sm font-semibold mb-2 text-[#3E2C20]">รหัสผ่าน</label>
                             <div className="relative">
                                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6D5A4B]/50" />
                                 <input
@@ -105,21 +99,14 @@ export default function LoginPage() {
                                     onClick={() => setShowPassword(!showPassword)}
                                     className="absolute right-4 top-1/2 -translate-y-1/2 text-[#6D5A4B]/50 hover:text-[#3E2C20] transition-colors"
                                 >
-                                    {showPassword ? (
-                                        <EyeOff className="w-4 h-4" />
-                                    ) : (
-                                        <Eye className="w-4 h-4" />
-                                    )}
+                                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                                 </button>
                             </div>
                         </div>
 
                         {/* Forgot Password */}
                         <div className="text-right">
-                            <button
-                                type="button"
-                                className="text-xs text-[#8FB8DE] hover:text-[#3E2C20] font-semibold transition-colors"
-                            >
+                            <button type="button" className="text-xs text-[#8FB8DE] hover:text-[#3E2C20] font-semibold transition-colors">
                                 ลืมรหัสผ่าน?
                             </button>
                         </div>
@@ -146,10 +133,10 @@ export default function LoginPage() {
                     <div className="text-center">
                         <p className="text-sm text-[#6D5A4B] font-light">
                             ยังไม่มีบัญชี?{" "}
-                            <button className="relative text-[#3E2C20] font-bold hover:text-[#8FB8DE] transition-colors group">
+                            <Link href="/register" className="relative text-[#3E2C20] font-bold hover:text-[#8FB8DE] transition-colors group">
                                 สมัครสมาชิก
                                 <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-[#8FB8DE] group-hover:w-full transition-all duration-300" />
-                            </button>
+                            </Link>
                         </p>
                     </div>
                 </div>

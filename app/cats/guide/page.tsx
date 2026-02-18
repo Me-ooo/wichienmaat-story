@@ -279,7 +279,7 @@ export default function GuidePage() {
                             <span className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                         </Link>
                         <Link
-                            href="/login"
+                            href="/register"
                             className="group relative inline-flex items-center gap-3 px-9 py-4.5 border-2 border-[#3E2C20] text-[#3E2C20] rounded-full font-bold hover:bg-[#3E2C20] hover:text-white hover:scale-105 active:scale-95 transition-all duration-300 hover:shadow-xl hover:shadow-[#3E2C20]/20 overflow-hidden"
                         >
                             <UserPlus className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
