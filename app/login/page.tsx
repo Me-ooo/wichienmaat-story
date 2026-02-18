@@ -30,9 +30,9 @@ export default function LoginPage() {
             >
                 <Link
                     href="/"
-                    className="group flex items-center gap-2 px-4 py-2.5 bg-white/80 backdrop-blur-md border border-[#3E2C20]/10 rounded-full shadow-lg hover:bg-[#3E2C20] hover:text-white transition-all duration-300"
+                    className="group flex items-center gap-2.5 px-5 py-3 bg-white/90 backdrop-blur-xl border border-[#3E2C20]/10 rounded-full shadow-lg shadow-[#3E2C20]/10 hover:bg-[#3E2C20] hover:text-white hover:shadow-xl hover:shadow-[#3E2C20]/25 hover:scale-105 active:scale-95 transition-all duration-300 ring-1 ring-[#3E2C20]/5 hover:ring-[#3E2C20]/50"
                 >
-                    <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                    <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1.5 transition-transform duration-300" />
                     <span className="text-sm font-semibold tracking-wide">กลับหน้าหลัก</span>
                 </Link>
             </motion.div>
@@ -127,10 +127,11 @@ export default function LoginPage() {
                         {/* Submit */}
                         <button
                             type="submit"
-                            className="w-full py-4 bg-[#3E2C20] text-white rounded-xl font-bold text-sm tracking-wide hover:bg-[#5C4033] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 shadow-lg"
+                            className="group relative w-full py-4 bg-gradient-to-r from-[#3E2C20] via-[#5C4033] to-[#3E2C20] text-white rounded-xl font-bold text-sm tracking-wide hover:shadow-xl hover:shadow-[#3E2C20]/30 active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2.5 shadow-lg ring-1 ring-white/10 hover:ring-white/20 overflow-hidden"
                         >
-                            <LogIn className="w-4 h-4" />
+                            <LogIn className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-300" />
                             เข้าสู่ระบบ
+                            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                         </button>
                     </form>
 
@@ -145,8 +146,9 @@ export default function LoginPage() {
                     <div className="text-center">
                         <p className="text-sm text-[#6D5A4B] font-light">
                             ยังไม่มีบัญชี?{" "}
-                            <button className="text-[#3E2C20] font-bold hover:text-[#8FB8DE] transition-colors">
+                            <button className="relative text-[#3E2C20] font-bold hover:text-[#8FB8DE] transition-colors group">
                                 สมัครสมาชิก
+                                <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-[#8FB8DE] group-hover:w-full transition-all duration-300" />
                             </button>
                         </p>
                     </div>

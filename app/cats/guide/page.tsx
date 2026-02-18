@@ -15,6 +15,8 @@ import {
     ShieldCheck,
     Sparkles,
     CheckCircle2,
+    PawPrint,
+    UserPlus,
 } from "lucide-react";
 
 const fadeInUp: Variants = {
@@ -133,9 +135,9 @@ export default function GuidePage() {
             >
                 <Link
                     href="/cats"
-                    className="group flex items-center gap-2 px-4 py-2.5 bg-white/80 backdrop-blur-md border border-[#3E2C20]/10 rounded-full shadow-lg hover:bg-[#3E2C20] hover:text-white transition-all duration-300"
+                    className="group flex items-center gap-2.5 px-5 py-3 bg-white/90 backdrop-blur-xl border border-[#3E2C20]/10 rounded-full shadow-lg shadow-[#3E2C20]/10 hover:bg-[#3E2C20] hover:text-white hover:shadow-xl hover:shadow-[#3E2C20]/25 hover:scale-105 active:scale-95 transition-all duration-300 ring-1 ring-[#3E2C20]/5 hover:ring-[#3E2C20]/50"
                 >
-                    <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                    <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1.5 transition-transform duration-300" />
                     <span className="text-sm font-semibold tracking-wide">กลับดูแมว</span>
                 </Link>
             </motion.div>
@@ -267,18 +269,22 @@ export default function GuidePage() {
                     <p className="text-[#6D5A4B] mb-10 max-w-lg mx-auto font-light text-lg">
                         เมื่ออ่านจบแล้ว คุณก็พร้อมที่จะต้อนรับน้องวิเชียรมาศเข้าสู่ครอบครัว
                     </p>
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
                         <Link
                             href="/cats"
-                            className="px-8 py-4 bg-[#3E2C20] text-white rounded-full font-bold hover:bg-[#8FB8DE] transition-colors duration-300 shadow-lg"
+                            className="group relative inline-flex items-center gap-3 px-9 py-4.5 bg-gradient-to-r from-[#3E2C20] via-[#5C4033] to-[#3E2C20] text-white rounded-full font-bold shadow-xl shadow-[#3E2C20]/30 hover:shadow-2xl hover:shadow-[#8FB8DE]/40 hover:scale-105 active:scale-95 transition-all duration-300 ring-1 ring-white/10 hover:ring-[#8FB8DE]/50 overflow-hidden"
                         >
+                            <PawPrint className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
                             กลับดูสายพันธุ์
+                            <span className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                         </Link>
                         <Link
                             href="/login"
-                            className="px-8 py-4 border-2 border-[#3E2C20] text-[#3E2C20] rounded-full font-bold hover:bg-[#3E2C20] hover:text-white transition-colors duration-300"
+                            className="group relative inline-flex items-center gap-3 px-9 py-4.5 border-2 border-[#3E2C20] text-[#3E2C20] rounded-full font-bold hover:bg-[#3E2C20] hover:text-white hover:scale-105 active:scale-95 transition-all duration-300 hover:shadow-xl hover:shadow-[#3E2C20]/20 overflow-hidden"
                         >
+                            <UserPlus className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
                             สมัครสมาชิก
+                            <span className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-[#3E2C20]/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                         </Link>
                     </div>
                 </motion.div>
